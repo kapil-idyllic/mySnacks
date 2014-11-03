@@ -29,8 +29,6 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.9)
-    bcrypt-ruby (3.1.5)
-      bcrypt (>= 3.1.3)
     builder (3.2.2)
     coderay (1.1.0)
     erubis (2.7.0)
@@ -106,7 +104,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt-ruby
+  bcrypt
   foundation-rails
   hirb
   jquery-rails

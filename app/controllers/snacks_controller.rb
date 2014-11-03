@@ -1,6 +1,9 @@
 class SnacksController < ApplicationController
 
   # GET /snacks/1
+
+  before_filter :show, only:[:total_orders, :whos_order_what, :todays_order]
+
   def show
     @snack = Snack.where(created_at:
                          DateTime.now.midnight..DateTime.now.advance(days: 1).midnight).last
@@ -8,6 +11,37 @@ class SnacksController < ApplicationController
     @grouped_orders = []
     @orders = @snack.orders     if @snack
     @grouped_orders = grouped_orders if !@orders.empty?
+  end
+
+  def total_orders
+    total_orders_json = []
+    grouped_orders.each do |k, v|
+      quantity = v.map{|o| o.quantity.to_i}.inject(0, :+)
+      special_instructions = v.select{|o| !o.special_instructions.blank?}.map{|vv| "#{vv.special_instructions} in 1 order"}.join(', ')
+      total_orders_json << {food_name: k, quantity: quantity, special_instructions: special_instructions }
+    end
+
+    render json: total_orders_json
+  end
+
+  def whos_order_what
+    whos_order_what = []
+    @orders.each do |order|
+      #quantity = v.map{|o| o.quantity.to_i}.inject(0, :+)
+      #special_instructions = v.select{|o| !o.special_instructions.blank?}.map{|vv| "#{vv.special_instructions} in 1 order"}.join(', ')
+      whos_order_what << {ordered_by: order.ordered_by.capitalize,
+                            food_name: order.name,
+                            quantity: order.quantity,
+                            special_instructions: order.special_instructions }
+    end
+
+    render json: whos_order_what
+  end
+
+  def todays_order
+    snack = []
+    snack << {snacks: @snack.name.split(", "), provider: @snack.provider.titleize, price: @snack.price}
+    render json: snack
   end
 
   # GET /snacks/new

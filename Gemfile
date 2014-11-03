@@ -9,5 +9,5 @@ gem 'jquery-rails'
 gem 'foundation-rails'
 # gem 'debugger', group: [:development, :test]
 gem "strip_attributes"
-gem 'bcrypt-ruby', :require => 'bcrypt'
+gem 'bcrypt'
 gem 'hirb'

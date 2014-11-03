@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   # def clear_password
   #   self.password = nil
   # end
+  validates :email, uniqueness: true
 
 
   def self.authenticate(email, password)
