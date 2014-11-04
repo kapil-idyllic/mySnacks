@@ -39,8 +39,8 @@ class SnacksController < ApplicationController
   end
 
   def todays_order
-    snack = []
-    snack << {snacks: @snack.name.split(", "), provider: @snack.provider.titleize, price: @snack.price}
+
+    snack = {snacks: @snack.name.split(", "), provider: @snack.provider.titleize, price: @snack.price}
     render json: snack
   end
 
