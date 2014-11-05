@@ -91,6 +91,7 @@ class SnacksController < ApplicationController
 
   private
     def snack_params
+      params[:snack][:name].present? ? params[:snack][:name].gsub!("\r\n", "") : params[:snack][:name]
       params[:snack].permit!
     end
 
