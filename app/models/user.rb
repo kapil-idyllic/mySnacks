@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   # end
   validates :email, uniqueness: true
 
+  before_create :check_idyllic_user
 
   def self.authenticate(email, password)
     user = find_by_email(email)
@@ -22,6 +23,23 @@ class User < ActiveRecord::Base
     else
       nil
     end
+  end
+
+
+
+
+  private
+  def check_idyllic_user
+    #read csv from google drive
+    session = GoogleDrive.login("bhosalekapil2015@gmail.com", "Kapil@1234")
+    ws = session.spreadsheet_by_key("15mhoHOjO0kDFlkOhFlGX6mGUQ2QbziQu0nD8_pWwX1o").worksheets[0]
+    arr = []
+    arr << ws.rows
+    arr.flatten!.delete_at(0)
+    idyllic_users = arr
+    return true if idyllic_users.include?(self.email)
+    errors.add(:base, "Email is not registered to Idyllic")
+    return false
   end
 
 end

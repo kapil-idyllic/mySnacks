@@ -11,3 +11,5 @@ gem 'foundation-rails'
 gem "strip_attributes"
 gem 'bcrypt'
 gem 'hirb'
+gem 'google-api-client'
+gem 'google_drive'
