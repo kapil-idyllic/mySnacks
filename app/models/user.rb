@@ -26,10 +26,14 @@ class User < ActiveRecord::Base
     end
   end
 
-
+  def notifity_all
+    gcm = GCM.new("AIzaSyBL9CnT95a3T2oixk-93nqw63KkpoEwd_g")
+    all_device_ids = User.pluck(:device_id)
+    options = {data: {:title=>"Idyllic Snacks", :message=>"Please place your order, \nif you didn't till."}, collapse_key: "Place Order"}
+    response = gcm.send(all_device_ids, options)
+  end
 
 #read csv from google drive
-      
   def self.clear_cache
     @@id_users = nil
   end
