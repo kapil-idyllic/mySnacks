@@ -17,8 +17,8 @@ class User < ActiveRecord::Base
   before_create :check_idyllic_user
   @@id_users= nil
 
-  def self.authenticate(email, password)
-    user = find_by_email(email)
+  def self.authenticate(username, password)
+    user = find_by_username(username)
     if user && user.password == password
       user
     else
