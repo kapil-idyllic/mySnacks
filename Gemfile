@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'gcm'
 gem 'rails'
 gem 'pg'
 gem 'pry'
