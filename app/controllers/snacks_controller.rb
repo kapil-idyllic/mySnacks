@@ -5,7 +5,6 @@ class SnacksController < ApplicationController
   before_filter :show, only:[:total_orders, :whos_order_what, :todays_order]
 
   def show
-    cookies[:login] = { :username => "test", :expires => Time.now + 3600}
     @snack = Snack.find(4)
     @orders = []
     @grouped_orders = []
@@ -75,9 +74,6 @@ class SnacksController < ApplicationController
   end
 
   def place_order
-    binding.pry
-    cookies[:login]
-
     params[:order].permit!
     params[:order][:name] = params[:custom_snack_name] if !params[:custom_snack_name].blank?
     Order.create(params[:order]) if !params[:order][:name].blank?

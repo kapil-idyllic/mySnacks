@@ -20,8 +20,6 @@ class UserController < ApplicationController
   def authenticate_mobile_user
     user = User.authenticate(params[:username], params[:password])
     if user
-      cookies[:login] = { :username => "#{user.username}", :expires => Time.now + 3600}
-      binding.pry
       render json: {status: true}
     else
       render json: {status: false}
