@@ -4,6 +4,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
   # before_filter :authenticate
 
+  def current_user
+    @_current_user
+  end
+
+  def set_current_user(user)
+    @_current_user = user
+  end
+
+
   protected
 
   def authenticate
