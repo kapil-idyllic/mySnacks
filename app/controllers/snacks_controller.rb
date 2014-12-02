@@ -5,14 +5,15 @@ class SnacksController < ApplicationController
   before_filter :show, only:[:total_orders, :whos_order_what, :todays_order]
 
   def show
-    @snack = Snack.where(created_at:
-                         DateTime.now.midnight..DateTime.now.advance(days: 1).midnight).last
+    cookies[:login] = { :username => "test", :expires => Time.now + 3600}
+    @snack = Snack.find(4)
     @orders = []
     @grouped_orders = []
     @orders = @snack.orders     if @snack
     @grouped_orders = grouped_orders if !@orders.empty?
   end
 
+  # mobile method
   def total_orders
     total_orders_json = []
     grouped_orders.each do |k, v|
@@ -23,7 +24,8 @@ class SnacksController < ApplicationController
 
     render json: total_orders_json
   end
-
+  
+# mobile method
   def whos_order_what
     whos_order_what = []
     @orders.each do |order|
@@ -34,12 +36,12 @@ class SnacksController < ApplicationController
                             quantity: order.quantity,
                             special_instructions: order.special_instructions }
     end
-
     render json: whos_order_what
   end
 
+# mobile method
   def todays_order
-    snack = @snack.nil? ? {} : {snacks: @snack.name.split(", "), provider: @snack.provider.titleize, price: @snack.price}
+    snack = @snack.nil? ? {} : {snacks: @snack.name.split(", "), provider: @snack.provider.titleize, price: @snack.price, snacks_id: @snack.id}
     render json: snack
   end
 
@@ -54,6 +56,7 @@ class SnacksController < ApplicationController
 
   # POST /snacks
   def create
+
     @snack = Snack.new(snack_params)
     if @snack.save
       redirect_to :root
@@ -72,6 +75,9 @@ class SnacksController < ApplicationController
   end
 
   def place_order
+    binding.pry
+    cookies[:login]
+
     params[:order].permit!
     params[:order][:name] = params[:custom_snack_name] if !params[:custom_snack_name].blank?
     Order.create(params[:order]) if !params[:order][:name].blank?
