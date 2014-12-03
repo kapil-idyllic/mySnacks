@@ -14,3 +14,7 @@ gem 'bcrypt'
 gem 'hirb'
 gem 'google-api-client'
 gem 'google_drive'
+gem 'sidekiq'
+gem 'sidekiq-status'
+gem 'sidekiq-scheduler'
+gem 'whenever', require: false
