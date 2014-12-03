@@ -5,7 +5,7 @@ class SnacksController < ApplicationController
   before_filter :show, only:[:total_orders, :whos_order_what, :todays_order]
 
   def show
-    @snack = Snack.find(4)
+    @snack = Snack.where(created_at:DateTime.now.midnight..DateTime.now.advance(days: 1).midnight).last
     @orders = []
     @grouped_orders = []
     @orders = @snack.orders if @snack
