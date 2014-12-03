@@ -8,7 +8,7 @@ class SnacksController < ApplicationController
     @snack = Snack.find(4)
     @orders = []
     @grouped_orders = []
-    @orders = @snack.orders     if @snack
+    @orders = @snack.orders if @snack
     @grouped_orders = grouped_orders if !@orders.empty?
   end
 

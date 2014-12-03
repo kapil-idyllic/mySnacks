@@ -26,13 +26,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.notify_all
+  def notifity_all
     gcm = GCM.new("AIzaSyBL9CnT95a3T2oixk-93nqw63KkpoEwd_g")
-
     all_device_ids = User.pluck(:device_id)
-    p all_device_ids
     options = {data: {:title=>"Idyllic Snacks", :message=>"Please place your order, \nif you didn't till."}, collapse_key: "Place Order"}
-    logger.debug( "Sending push notifications to android at #{Time.now}" )
     response = gcm.send(all_device_ids, options)
   end
 
