@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem "better_errors"
 gem 'gcm'
 gem 'rails'
 gem 'pg'
