@@ -4,7 +4,7 @@ class UserController < ApplicationController
 
   end
 
-  def create
+  def create_user
     user = User.new
     user.email = params[:email]
     user.username = params[:username]
