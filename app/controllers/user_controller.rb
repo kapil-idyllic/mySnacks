@@ -9,7 +9,7 @@ class UserController < ApplicationController
     user.email = params[:email]
     user.username = params[:username]
     user.password = params[:password]
-    user.device_id = params[:deviceID]
+    user.device_id = params[:device_id]
     if user.save
       render json: {status: true}
     else
