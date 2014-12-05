@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
     end
 
     puts @@id_users.join(' ,')
-    return true if @@id_users.include?(self.email.donwncase)
+    return true if @@id_users.include?(self.email.downcase.gsub(' ' , ''))
     errors.add(:base, "Email is not registered to Idyllic")
     return false
   end
